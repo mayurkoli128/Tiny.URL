@@ -1,0 +1,2 @@
+==> longUrl should be of type URL in urlSchema.(USE Regex)
+==> 
