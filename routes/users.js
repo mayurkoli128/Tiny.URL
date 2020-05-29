@@ -7,19 +7,25 @@ const bcrypt = require('bcrypt');
 //const async = require('../middleware/async'); 
 require('express-async-errors');
 
+// @type    get
+// @route   /api/auth/register
+// @desc    route for user to redirect to registration page
+// @access  PUBLIC 
+
+router.get('/register', (req, res) => {
+    res.render('register');
+})
 
 // @type    post
 // @route   /api/auth/register
 // @desc    route for user Login using jsonwebtoken
 // @access  PUBLIC 
-router.get('/', (req, res) => {
-    console.log('exe');
-})
 router.post('/register', async(req, res) => {
      // validate req body
+     console.log(req);
      const {error} = validate(req.body);
      if(error) {
-         return res.status(400).send(error.details[0].message);
+         return res.status(400).render('register', {error : error});
      }
      //make sure that email is unique...
      let user = await User.findOne({email: req.body.email});
