@@ -1,8 +1,26 @@
-<% if(typeof error != 'undefined') {%>
+<% if(typeof error != 'undefined' && typeof error.details != 'undefined' && typeof error.details[0].message != 'undefined'){%>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <%= error.details[0].message %>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>  
+<%}%>
+
+<% if(typeof success_msg != 'undefined'){%>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success_msg %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>  
+<%}%>
+
+<% if(typeof error_msg != 'undefined'){%>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= error_msg %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>  
 <%}%>

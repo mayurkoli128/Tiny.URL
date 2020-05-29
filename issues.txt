@@ -1,2 +1,3 @@
 ==> longUrl should be of type URL in urlSchema.(USE Regex)
-==> 
+==> passport-strategy line no:17
+==> users.js [register] route separate call for to find user with username & password

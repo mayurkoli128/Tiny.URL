@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const base62 = require('base-62');
 const {Url} = require('../models/url');
-const authorize = require('../middleware/authorize');
+//const authorize = require('../middleware/authorize');
 const {getNextCounter} = require('../sequence');
 require('express-async-errors');
 
@@ -10,7 +10,7 @@ require('express-async-errors');
 // @route   /api/links/new
 // @desc    route for to create new short url for the long one
 // @access  PRIVATE 
-router.post('/new', [authorize], async (req, res) => {
+router.post('/new', async (req, res) => {
     const urlID = await getNextCounter();
     const url = new Url({
         _id: urlID,

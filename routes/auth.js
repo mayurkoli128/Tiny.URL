@@ -5,15 +5,7 @@ const {User} = require('../models/user');
 const express = require('express');
 const ejs = require('ejs');
 const router = express.Router();
-const validateToken = require('../middleware/authorize');
-
-// @type    GET
-// @route   /api/auth/me
-// @desc    route for to get current login user
-// @access  PRIVATE 
-router.get('/me', [validateToken], (req, res) => {
-    res.status(200).send(req.user);
-});
+const passport = require('passport');
 
 // @type    GET
 // @route   /api/auth/login
@@ -27,31 +19,16 @@ router.get('/login', (req, res) => {
 // @desc    route for user Login using email and password
 // @access  PUBLIC 
 
-router.post('/login',async (req, res) => {
-  const { error } = validate(req.body); 
-  if (error) {
-    res.render('login', {error: error});
-    return;
-  }
-  
-  let user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).render('login', 'Invalid email or password');
+// router.post('/login', (req, res, next) => {
+//   passport.authenticate('local', {
+//     successRedirect: '/me',
+//     failureRedirect: 'login',
+//   })(req, res, next);
+// });
 
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).render('login', 'Invalid email or password');
-
-  const token = user.generateAuthToken();
-  res.status(200).send(token);
-});
-
-// validate req body
-
-function validate(req) {
-  const schema = {
-    email: Joi.string().required().email(),
-    password: Joi.string().min(6).max(255).required()
-  };
-
-  return Joi.validate(req, schema);
-}
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/me',
+                                   failureRedirect: '/login',
+     })
+);
 module.exports = router; 

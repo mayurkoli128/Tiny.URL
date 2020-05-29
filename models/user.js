@@ -1,8 +1,7 @@
 // USERS Schema
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
-require('dotenv').config;
+//const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -40,15 +39,15 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
-userSchema.methods.generateAuthToken = function() {
-    let token = jwt.sign({
-        name: this.name,
-        _id: this._id,
-        email: this.email,
-    }, process.env.JWT_PRIVATE_TOKEN, {expiresIn: '1h'});
+// userSchema.methods.generateAuthToken = function() {
+//     let token = jwt.sign({
+//         name: this.name,
+//         _id: this._id,
+//         email: this.email,
+//     }, process.env.JWT_PRIVATE_TOKEN, {expiresIn: '1h'});
 
-    return token;
-}
+//     return token;
+// }
 const User = mongoose.model('users', userSchema);
 
 // validating body of the request...
@@ -58,7 +57,8 @@ function validate(user) {
         name: Joi.string().max(255).required(),
         username: Joi.string().max(255).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().min(6).max(255).required()
+        password: Joi.string().min(6).max(255).required(),
+        confirm_password : Joi.any().valid(Joi.ref('password')).required().options({ language: { any: { allowOnly: 'must match password' } } })
     });
     return Joi.validate(user, schema);
 }
