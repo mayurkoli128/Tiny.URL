@@ -2,6 +2,7 @@ const localStrategy = require('passport-local').Strategy;
 const {User} = require('../models/user');
 require('express-async-errors');
 const Joi = require('joi');
+const bcrypt = require('bcrypt');
 
 module.exports = function(passport) {
 
@@ -18,18 +19,20 @@ module.exports = function(passport) {
     passport.use(new localStrategy({usernameField: 'email'}, async (email, password, done) => {
         const {error} = validate({email, password});
         
-        if(error) {
+        if(error) 
             return done(null, false, {message: error.details[0].message});
-        }
+        
         const user = await User.findOne({email : email});
-
         if(user) {
-            return done(null, user);
+            const isValid = await bcrypt.compare(password, user.password);
+            if(isValid)
+                return done(null, user);
+            else 
+                return done(null, false, {message : 'Invalid Email or Password'});
         }
-        else {
+        else 
             return done(null, false, {message : 'Invalid Email or Password'});
-        }
-    }))
+    }));
 }
 // validate req body
 

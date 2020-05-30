@@ -1,16 +1,13 @@
 const express = require('express');
-const app = express();
-
-
-
-const PORT = process.env.PORT || 8080;
-const HOST = 'localhost';
+const app =     express();
+                require('dotenv').config();
 
 require('./startup/passport')();
 require('./startup/db')();
-require('./startup/routes')(app);
+require('./startup/routes')(app, express);
 
-
+const PORT = process.env.PORT;
+const HOST = process.env.DB_HOST;
 
 app.listen(PORT, HOST, (err) => {
     console.log(`Listening on ${HOST}:${PORT}`);

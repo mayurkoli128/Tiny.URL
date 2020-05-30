@@ -30,4 +30,13 @@ const urlSchema = new mongoose.Schema({
 
 const Url = mongoose.model('urls', urlSchema);
 
+function validate(url) {
+    const Schema = Joi.object().keys({
+        originalUrl: Joi.string().uri()
+    });
+    
+    return Joi.validate(url, Schema);
+}
+
 module.exports.Url = Url;
+module.exports.validate = validate;

@@ -1,13 +1,15 @@
 
-const bodyParser =      require('body-parser');
 const users =           require('../routes/users');
 const auth =            require('../routes/auth');
-const links =           require('../routes/links');
-const me =              require('../routes/me');
 const home =            require('../routes/home');
-const express =         require('express');
+const links =           require('../routes/links');
 const passport =        require('passport');
+const bodyParser =      require('body-parser');
+const result =          require('../routes/result');
 const cookieSession =   require('cookie-session');
+const flash =           require('connect-flash');
+var cookieParser =      require('cookie-parser');
+var session =           require('express-session');
                         require('dotenv').config();
 
 /*
@@ -16,7 +18,7 @@ cookie-session can simplify certain load-balanced scenarios.
 cookie-session can be used to store a "light" session and include an identifier to look up a database-backed secondary store to reduce database lookups. */
 
 
-module.exports = function (app) {
+module.exports = function (app, express) {
     
     /*A user session can be stored in two main ways with cookies: on the server or on the client. This module stores the session data on the client within a cookie */
 
@@ -36,13 +38,22 @@ module.exports = function (app) {
     /*  
         express.json() is a method inbuilt in express to recognize the incoming Request Object as a JSON Object. This method is called as a middleware in your application using the code: app.use(express.json()); 
     */
-   // Passport middleware
-   
+
+   //flash massaging
+    app.use(cookieParser('keyboard cat'));
+    app.use(session({ 
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge: 60000 }}
+    ));
+    app.use(flash());
+
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(bodyParser.json());
     app.use('/', home);
-    app.use('/me', me);
+    app.use('/', result);
     app.use('/api/auth/', auth);
     app.use('/api/users/', users);
     app.use('/api/links/', links);
