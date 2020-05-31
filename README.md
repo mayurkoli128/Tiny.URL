@@ -1,6 +1,6 @@
 # Tiny.URL
 TinyURL is a URL shortening web service, which provides short aliases for redirection of long URLs.It takes a long link that may be many dozens of characters in length, and it turns it into a relatively tiny link (at most 6 character long.).
-# Demo
+## Demo
 ![hippo](https://raw.githubusercontent.com/mayurkoli128/Tiny.URL/master/demo/ezgif.com-optimize.gif)
 
 
