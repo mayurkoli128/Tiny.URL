@@ -25,6 +25,10 @@ npm install
 ```bash
 npm start
 ```
+5.) Open.
+```bash
+http://localhost:8080/
+```
 
 ## Contributing
 *Any contribution or suggestion's most welcome.* 
