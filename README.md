@@ -27,7 +27,7 @@ npm start
 ```
 
 ## Contributing
-*Any contribution or suggestion's most welcome.* For major changes, please open an issue first to discuss what you would like to change.
+*Any contribution or suggestion's most welcome.* 
 
 **Steps for contribution**
 
