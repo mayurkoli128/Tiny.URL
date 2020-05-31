@@ -4,7 +4,7 @@
   "description": " URL shortener that shortens your long URL links into more manageable and useable URLs.",
   "main": "index.js",
   "scripts": {
-    "test": "npm start"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

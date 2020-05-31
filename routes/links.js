@@ -2,6 +2,7 @@ const express =                     require('express');
 const router =                      express.Router();
 const {Url, validate} =             require('../models/url');
 const {auth} = require('../middleware/authorized');
+const {User} = require('../models/user');
 const base62 =                      require('base-62');
 const {getNextCounter} =            require('../sequence');
                                     require('express-async-errors');
@@ -27,8 +28,16 @@ router.post('/new', [auth], async (req, res) => {
         user: req.user._id,
     });
     await url.save();
+
+    await User.findByIdAndUpdate(req.user._id, {
+        $inc: {
+            urlCounts: 1,
+        },
+    },  {useFindAndModify: false});
+
     req.flash('hash', url.hash);
     req.flash('host', req.get('host'));
+    req.flash('success_msg', 'Success : Short URL has been created');
     res.status(200).redirect('../users/me');
 });
 module.exports = router;

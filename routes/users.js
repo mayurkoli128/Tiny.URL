@@ -17,10 +17,11 @@ router.get('/me', [auth], (req, res) => {
     res.status(200).render('dashboard', 
     {
         user : req.user, 
-        error: req.flash('error'),
+        error: req.flash('error')[0],
         hash: req.flash('hash')[0],
         host: req.flash('host')[0],
         info: req.flash('info'),
+        success_msg: req.flash('success_msg')[0],
     });
 });
 

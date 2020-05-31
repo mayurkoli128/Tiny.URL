@@ -14,7 +14,7 @@ router.get('/:url', async (req, res) => {
     const urlID = base62.decode(req.params.url);
     const obj = await Url.findById(urlID);
     if(!obj) {
-        return res.status(404).render('404_error_template', {title: "Sorry, page not found"});
+        return res.render('404');
     }
     return res.redirect(obj.originalUrl);
 });

@@ -29,6 +29,9 @@ body {
     margin-top: 40px;
     margin-right: 10px;
 }
+.btn-element button {
+    margin-top: 10px;
+}
 .url-block {
     background-color: darkslategrey;
 }
