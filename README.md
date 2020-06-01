@@ -1,6 +1,6 @@
 # Tiny.URL
 TinyURL is a URL shortening web service, which provides short aliases for redirection of long URLs.It takes a long link that may be many dozens of characters in length, and it turns it into a relatively tiny link (at most 6 character long.).
-# Demo
+## Demo
 ![hippo](https://raw.githubusercontent.com/mayurkoli128/Tiny.URL/master/demo/ezgif.com-optimize.gif)
 
 
@@ -16,6 +16,12 @@ git clone https://github.com/mayurkoli128/Tiny.URL.git
 cd Tiny.URL
 ```
 
+3.) Setting environment variables.
+```bash
+Open Example.env file and set Environment Variable's
+Eg : DB_NAME = "XYZ" and rename file from exmaple.env to .env
+```
+
 3.) Install node module's
 ```bash
 npm install
@@ -25,9 +31,13 @@ npm install
 ```bash
 npm start
 ```
+5.) Open.
+```bash
+http://localhost:8080/
+```
 
 ## Contributing
-*Any contribution or suggestion's most welcome.* For major changes, please open an issue first to discuss what you would like to change.
+*Any contribution or suggestion's most welcome.* 
 
 **Steps for contribution**
 
