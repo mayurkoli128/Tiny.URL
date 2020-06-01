@@ -1,8 +1,8 @@
 const express =                     require('express');
 const router =                      express.Router();
 const {Url, validate} =             require('../models/url');
-const {auth} = require('../middleware/authorized');
-const {User} = require('../models/user');
+const {auth} =                      require('../middleware/authorized');
+const {User} =                      require('../models/user');
 const base62 =                      require('base-62');
 const {getNextCounter} =            require('../sequence');
                                     require('express-async-errors');

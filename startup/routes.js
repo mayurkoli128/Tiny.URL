@@ -10,7 +10,7 @@ const cookieSession =   require('cookie-session');
 const flash =           require('connect-flash');
 var cookieParser =      require('cookie-parser');
 var session =           require('express-session');
-                        require('dotenv').config();
+                        
 
 /*
 cookie-session does not require any database / resources on the server side, though the total session data cannot exceed the browser's max cookie size.
@@ -19,7 +19,13 @@ cookie-session can be used to store a "light" session and include an identifier 
 
 
 module.exports = function (app, express) {
-    
+
+    if(app.get('env') == 'production') {
+        require('dotenv').config();
+    }
+    else {
+        var config = require('../config/default.json');
+    }
     /*A user session can be stored in two main ways with cookies: on the server or on the client. This module stores the session data on the client within a cookie */
 
     // the function will de
