@@ -1,40 +1,49 @@
 # Tiny.URL
 TinyURL is a URL shortening web service, which provides short aliases for redirection of long URLs.It takes a long link that may be many dozens of characters in length, and it turns it into a relatively tiny link (at most 6 character long.).
+
 ## Demo
 ![hippo](https://raw.githubusercontent.com/mayurkoli128/Tiny.URL/master/demo/ezgif.com-optimize.gif)
 
+## Project Setup
+Make sure to follow all these steps exactly as explained below. Do not miss any steps or you won't be able to run this application.
+#
 
-## Installation
+### 1.) Install MongoDB.
 
-1.) Clone the repository.
+ To run this project, you need to install the latest version of MongoDB Community Edition first.(Once install make sure it running properly.)
+   * https://docs.mongodb.com/manual/installation/<br/>
+
+### 2.) Clone the repository.
 ```bash
 git clone https://github.com/mayurkoli128/Tiny.URL.git
 ```
 
-2.) Change directory.
+### 3.) Change directory.
 ```bash
 cd Tiny.URL
 ```
 
-3.) Setting environment variables.
-```bash
-Open Example.env file and set Environment Variable's
-Eg : DB_NAME = "XYZ" and rename file from exmaple.env to .env
-```
-
-3.) Install node module's
+### 4.) Install Dependencies
 ```bash
 npm install
 ```
 
-4.) Start.
+### 5.) Start the Server.
 ```bash
 npm start
 ```
-5.) Open.
-```bash
-http://localhost:8080/
+This will launch the Node server on port 8080. If that port is busy, you can set a different port in config/default file (Eg: PORT=5000)
+
+Open up your browser and head over to:
+
+* http://localhost:8080/
+
+### 6.) (Optional) Setting environment variables.
+if you look at config/default.json, you'll see KEY'S. So, for security reasons, it should not be checked into the source control. I've set a default value here to make it easier for you to get up and running with this project. **For a production scenario, you should store this key as an environment variable.**
 ```
+create .env file and store secrete key's here
+```
+ * Eg : DB_NAME = "XYZ" <br/>
 
 ## Contributing
 *Any contribution or suggestion's most welcome.* 
@@ -48,7 +57,7 @@ http://localhost:8080/
   * **Submit** a Pull request so that I can review your changes.
 
 
-## License
+# License
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ```diff
