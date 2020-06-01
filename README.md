@@ -16,6 +16,12 @@ git clone https://github.com/mayurkoli128/Tiny.URL.git
 cd Tiny.URL
 ```
 
+3.) Setting environment variables.
+```bash
+Open Example.env file and set Environment Variable's
+Eg : DB_NAME = "XYZ" and rename file from exmaple.env to .env
+```
+
 3.) Install node module's
 ```bash
 npm install
