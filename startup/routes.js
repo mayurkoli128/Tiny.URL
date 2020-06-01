@@ -31,7 +31,7 @@ module.exports = function (app, express) {
     // the function will de
     app.use(cookieSession({
         maxAge : 24 * 60 * 60 * 1000,
-        keys: [process.env.COOKIE_DECRYPT_SECRETE],
+        keys: [process.env.COOKIE_DECRYPT_SECRETE || config.COOKIE_DECRYPT_SECRETE],
     }));
 
     //ejs to serve the ejs pages 
