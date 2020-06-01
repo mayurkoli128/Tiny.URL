@@ -10,6 +10,7 @@ const {forwardAuthenticated} =  require('../middleware/authorized');
 router.get('/login', [forwardAuthenticated], (req, res) => {
   res.render('login', {
     error_msg : req.flash('error_msg')[0], 
+    error : req.flash('error')[0], 
     success_msg: req.flash('success_msg')[0],
     info: req.flash('info')[0]
   });

@@ -1,6 +1,6 @@
 {
   "DB_NAME": "tiny-url",
-  "PORT": "8080",
+  "PORT": "5050",
   "DB_HOST": "localhost",
   "NODE_ENV": "development",
   "DB_USER":"user",
