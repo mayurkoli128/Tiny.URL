@@ -1,54 +1,26 @@
-# Introduction
-Vault.IN is A password manager, digital vault with group management based on WebCryptoAPI http://www.w3.org/TR/WebCryptoAPI/. Vault.IN remembers all your passwords for you to help keep account information safe.it allows you to share individual records with any other users.
+# Tiny.URL
+TinyURL is a URL shortening web service, which provides short aliases for redirection of long URLs.It takes a long link that may be many dozens of characters in length, and it turns it into a relatively tiny link (at most 6 character long.).
 
-Vault.IN is based on Zero-Knowledge Architecture.
-1) Data is encrypted & decrypted locally on the user's device(not on the server.)
-2) The server never stores your record in plaintext.
-3) The keys to encrypt & decrypt the record are derived on user's device from the user's Master password.
-4) Sharing of data uses Public Key Cryptography.
-
-# How it works
-details of how Vault.IN works.
-initially, you need to register with a username and password and an RSA-OAEP key pair is generated. (for public-key cryptography.)
-
-then your private key is wrapped with an AES-GCM-256 instead of generating a random AES-GCM key we're gonna let you provide the password which 
-were then going to strengthen and harden and convert it into a CryptoKey.
-
-now let's walk through the flow of how the AES-GCM key is generated. First of all, we're gonna get's your password as bytes now we need to import these into CryptoKey (according to https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey.) it's actually an opaque representation of your password and just random bytes that you entered so it can't really be used for a key or anything yet but we need to do these in order to derive an AES-GCM key. and your AES-GCM key is derived from your PasswordCryptoKey.
-
-it takes salt and PasswordCryptoKey and then we're gonna run it through PBKDF2(Password base key derivation function 2.) with 250000 iterations and this operation which is a way of strengthening that password by repeatedly hashing it over and over again until it takes a long time meaning this way the key is hard to brute force so for this hashing we're gonna use SHA-256 now we have an AES-GCM key so we actually have something that we can actually wrap and unwrapped your private key.
-
-When you create a secret, you specify a title and a secret data content.
-
-The secret data content is encrypted using AES-GCM-256 with a randomly generated intermediate key.
-
-Finally, this intermediate key is wrapped with your public key and concatenated with the iv used for encryption of that secret.
-
-Any time you want to access a secret, you need to type your master password then from your PasswordCryptoKey an AES-GCM-256 key will be generated as discussed above, that will decrypt your private key then that will decrypt the intermediate key then finally decrypt the secret.
-
-Using this method, it's easy to share a secret. You just need to know the exact username of your friend so you can find his public key to encrypt the intermediate key of the secret.
-
-The secret field is only decrypted when you try to access the secret.
-
-The "unshare" feature modifies the intermediate key of that secret data record, so it also needs to decrypt the secret to re-encrypt it with the new intermediate key.
+## Demo
+![hippo](https://raw.githubusercontent.com/mayurkoli128/Tiny.URL/master/demo/ezgif.com-optimize.gif)
 
 ## Project Setup
 Make sure to follow all these steps exactly as explained below. Do not miss any steps or you won't be able to run this application.
 #
 
-### 1.) Install MYSQL.
+### 1.) Install MongoDB.
 
- To run this project, you need to install the latest version of MYSQL Community Edition first. (Once installed make sure it running properly.)
-   * https://dev.mysql.com/downloads/mysql/<br/>
+ To run this project, you need to install the latest version of MongoDB Community Edition first.(Once install make sure it running properly.)
+   * https://docs.mongodb.com/manual/installation/<br/>
 
 ### 2.) Clone the repository.
 ```bash
-git clone https://github.com/mayurkoli128/Vault.IN.git
+git clone https://github.com/mayurkoli128/Tiny.URL.git
 ```
 
 ### 3.) Change directory.
 ```bash
-cd Vault. IN
+cd Tiny.URL
 ```
 
 ### 4.) Install Dependencies
@@ -56,16 +28,58 @@ cd Vault. IN
 npm install
 ```
 
-### 5.) Setting Config.
-if you look at config/default.js, change accordingly. & create a database from database/db.sql (Copy all these queries and execute.) **For a production scenario, you should store this key as an environment variable and not along with source code.**
-
-
-### 6.) Start the Server.
+### 5.) Start the Server.
 ```bash
 npm start
 ```
-This will launch the Node server on port 8080. If that port is busy, you can set a different port in the config/default file (Eg: PORT=5000)
+This will launch the Node server on port 8080. If that port is busy, you can set a different port in config/default file (Eg: PORT=5000)
 
 Open up your browser and head over to:
 
 * http://localhost:8080/
+
+### 6.) (Optional) Setting environment variables.
+if you look at config/default.json, you'll see KEY'S. So, for security reasons, it should not be checked into the source control. I've set a default value here to make it easier for you to get up and running with this project. **For a production scenario, you should store this key as an environment variable.**
+```
+create .env file and store secrete key's here
+```
+ * Eg : DB_NAME = "XYZ" <br/>
+
+## Contributing
+*Any contribution or suggestion's most welcome.* 
+
+**Steps for contribution**
+
+  * **Fork** the repo on GitHub.
+  * **Clone** the project to your own machine.
+  * **Commit** changes to development branch.
+  * **Push** your work back up to your fork.
+  * **Submit** a Pull request so that I can review your changes.
+
+
+# License
+[MIT](https://choosealicense.com/licenses/mit/)
+
+```diff
+MIT License
+
+Copyright (c) [2020] [Mayur Kishor Koli]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+-The above copyright notice and this permission notice shall be included in all 
+-copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
